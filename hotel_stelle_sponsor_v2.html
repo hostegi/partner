@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel delle Stelle – Partnership Commerciale 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blu: #0B1A35;
+  --blu-med: #152A55;
+  --blu-chiaro: #1E3F80;
+  --oro: #C9A84C;
+  --oro-chiaro: #E2C97E;
+  --oro-tenue: #F5EDD4;
+  --bianco: #FFFFFF;
+  --sabbia: #F7F3EC;
+  --testo: #0B1A35;
+  --grigio: #6B7280;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bianco);
+  color: var(--testo);
+  overflow-x: hidden;
+}
+
+/* ─── CURSOR ─── */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--oro);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,168,76,0.5);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.12s ease;
+}
+
+/* ─── PROGRESS BAR ─── */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blu-chiaro), var(--oro));
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 2px; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.4rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.5s, padding 0.4s;
+}
+nav.scrolled {
+  background: rgba(11,26,53,0.96);
+  backdrop-filter: blur(16px);
+  padding: 1rem 3.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--oro-chiaro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeDown 0.8s 0.3s forwards;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  opacity: 0;
+  animation: fadeDown 0.8s 0.5s forwards;
+}
+.nav-links a {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--oro);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--oro-chiaro); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-social {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  opacity: 0;
+  animation: fadeDown 0.8s 0.7s forwards;
+}
+.nav-social-btn {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.nav-social-btn:hover {
+  background: var(--oro);
+  border-color: var(--oro);
+}
+.nav-social-btn svg {
+  width: 14px; height: 14px;
+  fill: rgba(255,255,255,0.7);
+  transition: fill 0.3s;
+}
+.nav-social-btn:hover svg { fill: var(--blu); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--blu);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 4rem 6rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 40%, rgba(30,63,128,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 50% at 15% 70%, rgba(201,168,76,0.07) 0%, transparent 50%);
+}
+
+/* Animated grid lines */
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.07;
+}
+.hero-grid-lines::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.6) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(80px, 80px); }
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: var(--oro);
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp var(--dur) var(--delay) infinite ease-in-out;
+}
+@keyframes floatUp {
+  0% { opacity: 0; transform: translateY(0) translateX(0); }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-120px) translateX(var(--drift)); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-left { }
+
+.hero-tag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--oro);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeRight 0.9s 0.4s forwards;
+}
+.hero-tag::before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  background: var(--oro);
+  animation: lineGrow 0.8s 0.8s forwards;
+}
+@keyframes lineGrow {
+  to { width: 2.5rem; }
+}
+
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 6vw, 6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--bianco);
+  opacity: 0;
+  animation: fadeRight 0.9s 0.6s forwards;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--oro-chiaro);
+  display: block;
+}
+
+.hero-sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeRight 0.9s 0.8s forwards;
+}
+
+.hero-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.65);
+  max-width: 440px;
+  opacity: 0;
+  animation: fadeRight 0.9s 1s forwards;
+}
+
+.hero-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  opacity: 0;
+  animation: fadeLeft 1s 0.7s forwards;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(201,168,76,0.12);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.hero-stat:hover { background: rgba(201,168,76,0.05); }
+.hero-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--oro);
+  transition: height 0.5s;
+}
+.hero-stat:hover::before { height: 100%; }
+
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--oro-chiaro);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  counter-reset: num;
+}
+.stat-num .plus { font-size: 1.8rem; color: var(--oro); }
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.4;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 1s 1.5s forwards;
+  cursor: pointer;
+}
+.hero-scroll span {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.2); }
+}
+
+/* ─── SECTION COMUNE ─── */
+.section-tag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--oro);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--oro);
+}
+
+/* ─── HOTEL ─── */
+.section-hotel {
+  padding: 9rem 4rem;
+  background: var(--sabbia);
+  position: relative;
+  overflow: hidden;
+}
+.hotel-watermark {
+  position: absolute;
+  right: -3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  animation: watermarkSlide 30s linear infinite;
+}
+@keyframes watermarkSlide {
+  0% { transform: translateY(-50%) translateX(0); }
+  100% { transform: translateY(-50%) translateX(-10%); }
+}
+
+.hotel-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.hotel-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 7rem;
+  align-items: start;
+  margin-bottom: 5rem;
+}
+.hotel-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--blu);
+  margin-bottom: 2rem;
+}
+.hotel-title em {
+  font-style: italic;
+  color: var(--oro);
+  display: block;
+}
+.hotel-text p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.95;
+  color: #3D4A5C;
+  margin-bottom: 1.3rem;
+}
+.hotel-text p:last-child { margin-bottom: 0; }
+.hotel-text strong { font-weight: 600; color: var(--blu); }
+
+/* Sponsor strip */
+.sponsor-strip {
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 2.5rem 0;
+  overflow: hidden;
+  position: relative;
+}
+.sponsor-strip-inner {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  animation: marquee 10s linear infinite;
+  white-space: nowrap;
+}
+.sponsor-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blu-chiaro);
+  flex-shrink: 0;
+}
+.sponsor-pill::before {
+  content: '';
+  display: block;
+  width: 5px; height: 5px;
+  background: var(--oro);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── NUMERI ─── */
+.section-numeri {
+  background: var(--blu);
+  padding: 7rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-numeri::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -200px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%);
+  pointer-events: none;
+}
+.numeri-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.numeri-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.numeri-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(201,168,76,0.08) 25%,
+    rgba(201,168,76,0.08) 75%,
+    transparent
+  );
+  pointer-events: none;
+}
+.numero-card {
+  padding: 3.5rem 2.5rem;
+  border-left: 1px solid rgba(201,168,76,0.12);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.numero-card:last-child { border-right: 1px solid rgba(201,168,76,0.12); }
+.numero-card:hover { background: rgba(255,255,255,0.02); }
+.numero-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--oro);
+  transition: width 0.6s;
+}
+.numero-card:hover::after { width: 100%; }
+
+.n-big {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--oro-chiaro);
+  line-height: 1;
+  margin-bottom: 0.7rem;
+}
+.n-big .n-plus { font-size: 2rem; color: var(--oro); }
+.n-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.5;
+}
+
+/* ─── PARTNERSHIP ─── */
+.section-partnership {
+  background: var(--bianco);
+  padding: 9rem 4rem;
+  position: relative;
+}
+.partnership-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.partnership-header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 6rem;
+  margin-bottom: 6rem;
+  align-items: end;
+}
+.partnership-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--blu);
+}
+.partnership-title em {
+  font-style: italic;
+  color: var(--oro);
+  display: block;
+}
+.partnership-intro {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.95;
+  color: #3D4A5C;
+}
+
+/* Forme possibili */
+.forme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+.forma-card {
+  background: var(--sabbia);
+  padding: 3rem 2.5rem;
+  position: relative;
+  cursor: default;
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+              box-shadow 0.4s;
+  border-bottom: 2px solid transparent;
+}
+.forma-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--blu);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.forma-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(11,26,53,0.12);
+  border-bottom-color: var(--oro);
+}
+.forma-card:hover .forma-num,
+.forma-card:hover .forma-title,
+.forma-card:hover .forma-text { position: relative; z-index: 1; }
+.forma-card:hover .forma-num { color: rgba(201,168,76,0.3); }
+.forma-card:hover .forma-title { color: var(--bianco); }
+.forma-card:hover .forma-text { color: rgba(255,255,255,0.6); }
+.forma-card:hover::before { opacity: 1; }
+
+.forma-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.5rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.18);
+  line-height: 1;
+  margin-bottom: 1.2rem;
+  transition: color 0.4s;
+  position: relative; z-index: 1;
+}
+.forma-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--blu);
+  margin-bottom: 0.9rem;
+  line-height: 1.3;
+  transition: color 0.4s;
+  position: relative; z-index: 1;
+}
+.forma-text {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #4A5568;
+  transition: color 0.4s;
+  position: relative; z-index: 1;
+}
+
+/* Esempio partnership */
+.esempio-wrap {
+  background: var(--blu);
+  padding: 4rem 4.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.esempio-wrap::before {
+  content: '';
+  position: absolute;
+  right: -100px; top: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.1);
+}
+.esempio-wrap::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.07);
+}
+.esempio-tag {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.esempio-tag::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--oro);
+}
+.esempio-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--bianco);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.esempio-title em { font-style: italic; color: var(--oro-chiaro); }
+.esempio-text {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.58);
+}
+.esempio-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative; z-index: 1;
+}
+.esempio-item {
+  padding: 1.5rem 1.8rem;
+  border-left: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: border-left-color 0.3s, background 0.3s;
+  cursor: default;
+}
+.esempio-item:hover {
+  border-left-color: var(--oro);
+  background: rgba(255,255,255,0.03);
+}
+.esempio-item:last-child { border-bottom: none; }
+.ei-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--oro-chiaro);
+  margin-bottom: 0.35rem;
+}
+.ei-desc {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+
+/* ─── COSA OFFRIAMO ─── */
+.section-offerta {
+  background: var(--sabbia);
+  padding: 9rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.offerta-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.offerta-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 7rem;
+  align-items: start;
+}
+.offerta-sticky {
+  position: sticky;
+  top: 120px;
+}
+.offerta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--blu);
+  margin-bottom: 1.5rem;
+}
+.offerta-title em {
+  font-style: italic;
+  color: var(--oro);
+  display: block;
+}
+.offerta-sub {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #5A6575;
+}
+
+.offerta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.offerta-item {
+  padding: 2.2rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  cursor: default;
+  transition: background 0.3s;
+}
+.offerta-item:first-child { border-top: 1px solid rgba(201,168,76,0.15); }
+.offerta-item:hover { background: rgba(201,168,76,0.04); }
+.offerta-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.4);
+  margin-top: 0.2rem;
+}
+.offerta-content .o-nome {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blu);
+  margin-bottom: 0.5rem;
+}
+.offerta-content .o-desc {
+  font-size: 0.84rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: #5A6575;
+}
+
+/* ─── CTA ─── */
+.section-cta {
+  background: var(--blu);
+  padding: 9rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.section-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oro) 40%, var(--oro) 60%, transparent);
+}
+
+/* Animated rings */
+.rings {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.08);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  animation: ringPulse var(--d) ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.08; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.cta-tag {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.cta-tag::before, .cta-tag::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--oro);
+}
+.cta-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--bianco);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+}
+.cta-title em { font-style: italic; color: var(--oro-chiaro); }
+.cta-text {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 4rem;
+}
+.cta-contacts {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.cta-contact {
+  padding: 2rem 3rem;
+  border: 1px solid rgba(201,168,76,0.15);
+  margin: -1px 0 0 -1px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.cta-contact:hover {
+  background: rgba(201,168,76,0.06);
+  border-color: rgba(201,168,76,0.35);
+  z-index: 1;
+  position: relative;
+}
+.cta-contact-label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 0.5rem;
+}
+.cta-contact-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--bianco);
+}
+.cta-footer {
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+}
+
+/* ─── SOCIAL FOOTER STRIP ─── */
+.social-strip {
+  background: #070F1E;
+  padding: 1.8rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  border-top: 1px solid rgba(201,168,76,0.1);
+}
+.social-strip-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+.social-strip-icons {
+  display: flex;
+  gap: 1rem;
+}
+.ss-icon {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.ss-icon:hover {
+  background: var(--oro);
+  border-color: var(--oro);
+}
+.ss-icon svg {
+  width: 14px; height: 14px;
+  fill: rgba(255,255,255,0.5);
+  transition: fill 0.3s;
+}
+.ss-icon:hover svg { fill: var(--blu); }
+.social-strip-note {
+  font-size: 0.62rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.05em;
+}
+
+/* ─── TIMELINE STORICA ─── */
+.section-storia {
+  background: var(--blu);
+  padding: 9rem 0 9rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-storia::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oro) 40%, var(--oro) 60%, transparent);
+}
+.storia-header {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  padding-right: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 5rem;
+  align-items: end;
+}
+.storia-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--bianco);
+}
+.storia-title em {
+  font-style: italic;
+  color: var(--oro-chiaro);
+  display: block;
+}
+.storia-intro {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.55);
+}
+
+/* Timeline scroll orizzontale */
+.timeline-track-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.timeline-drag-hint {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.timeline-drag-hint::after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  animation: hintSlide 1.8s ease-in-out infinite;
+}
+@keyframes hintSlide {
+  0%, 100% { width: 1rem; opacity: 0.3; }
+  50% { width: 3rem; opacity: 0.7; }
+}
+
+.timeline-track {
+  display: flex;
+  gap: 0;
+  cursor: grab;
+  user-select: none;
+  padding-bottom: 3rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.timeline-track::-webkit-scrollbar { display: none; }
+.timeline-track:active { cursor: grabbing; }
+
+/* Linea centrale */
+.timeline-track::before {
+  content: none;
+}
+
+.timeline-item {
+  flex-shrink: 0;
+  width: 280px;
+  padding: 0 2rem;
+  position: relative;
+  border-left: 1px solid rgba(201,168,76,0.15);
+}
+.timeline-item:first-child { padding-left: 0; border-left: none; }
+
+.tl-year {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--oro);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tl-year::before {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  background: var(--oro);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tl-category {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 1rem;
+}
+
+.tl-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tl-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--bianco);
+  line-height: 1.3;
+  transition: color 0.3s;
+}
+.tl-name:hover { color: var(--oro-chiaro); }
+.tl-name::after {
+  content: ' ·';
+  color: rgba(201,168,76,0.3);
+  font-size: 0.9rem;
+}
+.tl-name:last-child::after { content: ''; }
+
+.tl-note {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Timeline footer: nomi in marquee */
+.nomi-marquee {
+  margin-top: 4rem;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding-top: 2rem;
+  overflow: hidden;
+}
+.nomi-marquee-inner {
+  display: flex;
+  gap: 3rem;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+}
+.nomi-marquee-inner.reverse {
+  animation-direction: reverse;
+  animation-duration: 30s;
+  margin-top: 1rem;
+}
+.nomi-pill {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.18);
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+.nomi-pill:hover { color: var(--oro-chiaro); }
+
+/* ─── DOCUMENT COVER ─── */
+.doc-cover {
+  background: var(--sabbia);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem;
+}
+.doc-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://hostegi.github.io/imgpartner/ingressovintage.jpg') center/cover;
+  opacity: 0.12;
+}
+.doc-cover-border {
+  position: absolute;
+  inset: 2rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  pointer-events: none;
+}
+.doc-cover-border::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 2rem; right: 2rem;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--oro), transparent);
+}
+.doc-cover-border::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 2rem; right: 2rem;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--oro), transparent);
+}
+.doc-meta {
+  position: absolute;
+  top: 3.5rem;
+  right: 3.5rem;
+  text-align: right;
+}
+.doc-meta-item {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(11,26,53,0.35);
+  line-height: 1.8;
+}
+.doc-ref {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 3.5rem;
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(11,26,53,0.3);
+}
+.doc-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s 0.3s forwards;
+}
+.doc-cover-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 300;
+  color: var(--blu);
+  text-align: center;
+  line-height: 1.15;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeIn 1s 0.6s forwards;
+}
+.doc-cover-title em {
+  font-style: italic;
+  color: var(--oro);
+}
+.doc-cover-sub {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(11,26,53,0.45);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeIn 1s 0.8s forwards;
+}
+.doc-cover-divider {
+  width: 4rem;
+  height: 1px;
+  background: var(--oro);
+  margin: 0 auto 3rem;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+}
+.doc-cover-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #3D4A5C;
+  text-align: center;
+  max-width: 560px;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s 1.1s forwards;
+}
+.doc-scroll-cta {
+  position: absolute;
+  bottom: 3.5rem;
+  right: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s 1.5s forwards;
+  transition: gap 0.3s;
+}
+.doc-scroll-cta:hover { gap: 1.2rem; }
+.doc-scroll-cta::after {
+  content: '↓';
+  font-size: 1rem;
+}
+
+/* ─── FOTO INTEGRATIONS ─── */
+.hero-photo-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-photo-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+}
+.numeri-bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.numeri-bg-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.06;
+}
+.hotel-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.hotel-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.storia-photo-header {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.55;
+  margin-bottom: 3rem;
+}
+.gala-photo {
+  width: 100%;
+  aspect-ratio: 16/7;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+/* ─── PLASTIC FREE ─── */
+.section-plastic {
+  background: var(--blu);
+  padding: 7rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-plastic::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oro) 50%, transparent);
+}
+.plastic-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.plastic-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--bianco);
+  margin-bottom: 1.5rem;
+}
+.plastic-title em {
+  font-style: italic;
+  color: var(--oro-chiaro);
+  display: block;
+}
+.plastic-text {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.58);
+  margin-bottom: 1.2rem;
+}
+.plastic-progress {
+  margin-top: 2rem;
+  padding: 1.8rem 2rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(255,255,255,0.03);
+}
+.plastic-progress-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.plastic-bar-wrap {
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.plastic-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blu-chiaro), var(--oro));
+  width: 0%;
+  transition: width 1.8s cubic-bezier(0.25,0.46,0.45,0.94);
+  border-radius: 2px;
+}
+.plastic-bar.animated { width: 55%; }
+.plastic-milestone {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.25);
+  margin-top: 0.6rem;
+  text-align: right;
+}
+.plastic-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.plastic-item {
+  padding: 1.8rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.2rem;
+  align-items: start;
+  transition: background 0.3s;
+}
+.plastic-item:hover { background: rgba(255,255,255,0.03); }
+.plastic-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+.plastic-item-icon {
+  width: 2.5rem; height: 2.5rem;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.plastic-item-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--oro-chiaro);
+  margin-bottom: 0.3rem;
+}
+.plastic-item-desc {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.42);
+}
+
+/* ─── SERVIZI ─── */
+.section-servizi {
+  background: var(--sabbia);
+  padding: 7rem 4rem;
+}
+.servizi-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.servizi-header {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 5rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+.servizi-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--blu);
+}
+.servizi-title em {
+  font-style: italic;
+  color: var(--oro);
+  display: block;
+}
+.servizi-intro {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #4A5568;
+}
+.servizi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(201,168,76,0.12);
+}
+.servizio-card {
+  background: var(--bianco);
+  padding: 2.5rem 2rem;
+  position: relative;
+  transition: background 0.35s, transform 0.35s;
+  overflow: hidden;
+}
+.servizio-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--oro);
+  transition: width 0.4s;
+}
+.servizio-card:hover {
+  background: var(--sabbia);
+  transform: translateY(-3px);
+}
+.servizio-card:hover::before { width: 100%; }
+.servizio-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+.servizio-card:hover img { opacity: 1; }
+.servizio-nome {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blu);
+  margin-bottom: 0.5rem;
+}
+.servizio-desc {
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #5A6575;
+}
+
+/* ─── LOGO REPOWER ─── */
+.repower-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem 1.8rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: var(--bianco);
+  width: fit-content;
+}
+.repower-logo-wrap img {
+  height: 28px;
+  width: auto;
+  filter: none;
+  opacity: 1;
+}
+.repower-logo-label {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #4A5568;
+}
+
+/* ─── GALLERIA FOTO ─── */
+.section-gallery {
+  background: var(--blu);
+  padding: 6rem 4rem;
+  position: relative;
+}
+.section-gallery::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--oro) 50%, transparent);
+}
+.gallery-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+.gallery-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--bianco);
+  line-height: 1.1;
+}
+.gallery-title em { font-style: italic; color: var(--oro-chiaro); }
+.gallery-sub {
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  max-width: 320px;
+  line-height: 1.7;
+  text-align: right;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 220px 220px;
+  gap: 3px;
+}
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.gallery-item:first-child {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.4s;
+  opacity: 0.82;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+  opacity: 1;
+}
+.gallery-item-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1.2rem 0.8rem;
+  background: linear-gradient(to top, rgba(11,26,53,0.75), transparent);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-item-label { opacity: 1; }
+
+/* ─── LOCATION GRID ─── */
+.loc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.loc-cell {
+  padding: 1.2rem 1.5rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.03);
+}
+.loc-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 0.4rem;
+}
+.loc-val {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: #3D4A5C;
+  line-height: 1.5;
+}
+
+/* ─── UTILITY ─── */
+.n-plus-small { font-size: 2rem; color: var(--oro); }
+
+.cta-web-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  transition: border-color 0.3s;
+}
+.cta-web-link:hover { border-color: var(--oro); }
+
+/* ─── PHOTO SLOTS ─── */
+/* Slot per foto reali — sostituire src con URL GitHub */
+.photo-slot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: rgba(255,255,255,0.04); /* placeholder prima del caricamento */
+}
+.photo-hero-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.photo-hero-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.25; /* regola trasparenza hero foto */
+  transition: opacity 0.5s;
+}
+.photo-section-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+}
+.photo-section-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-storia-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+.photo-storia-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+/* ─── PERFORMANCE ─── */
+.hero-grid-lines, .particles, .hotel-watermark {
+  will-change: transform;
+}
+.nomi-marquee-inner, .sponsor-strip-inner {
+  will-change: transform;
+}
+/* Disabilita animazioni pesanti su mobile */
+@media (max-width: 768px) {
+  .hero-grid-lines { display: none; }
+  .hotel-watermark { display: none; }
+  .cursor, .cursor-ring { display: none; }
+  .timeline-item { width: 85vw; }
+  .storia-header { grid-template-columns: 1fr; gap: 2rem; padding-right: 1.5rem; }
+  .loc-grid { grid-template-columns: 1fr; }
+  .ev-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .section-ev { padding: 5rem 1.5rem; }
+  .section-storia { padding: 5rem 0 5rem 1.5rem; }
+  .nomi-marquee { padding-top: 1.5rem; }
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.22s; }
+.reveal-delay-3 { transition-delay: 0.34s; }
+.reveal-delay-4 { transition-delay: 0.46s; }
+
+/* ─── KEYFRAMES ─── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ─── COLONNINA ELETTRICA ─── */
+.section-ev {
+  background: var(--sabbia);
+  padding: 7rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-ev::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3) 50%, transparent);
+}
+.ev-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+.ev-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--blu);
+  margin-bottom: 1.5rem;
+}
+.ev-title em {
+  font-style: italic;
+  color: var(--oro);
+  display: block;
+}
+.ev-text {
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #3D4A5C;
+  margin-bottom: 1.2rem;
+}
+.ev-text:last-child { margin-bottom: 0; }
+.ev-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid rgba(201,168,76,0.3);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-top: 1.5rem;
+}
+.ev-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(201,168,76,0.12);
+}
+.ev-stat {
+  background: var(--bianco);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+.ev-stat:hover { background: var(--oro-tenue); }
+.ev-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--blu);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.ev-stat-label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grigio);
+  line-height: 1.4;
+}
+.ev-highlight {
+  grid-column: 1 / -1;
+  background: var(--blu);
+  padding: 2rem;
+  text-align: center;
+}
+.ev-highlight-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--oro-chiaro);
+  line-height: 1.6;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .hotel-grid, .partnership-header, .offerta-layout, .esempio-wrap { grid-template-columns: 1fr; gap: 3rem; }
+  .forme-grid { grid-template-columns: 1fr; }
+  .numeri-grid { grid-template-columns: repeat(2, 1fr); }
+  .section-hotel, .section-numeri, .section-partnership,
+  .section-offerta, .section-cta { padding: 5rem 1.5rem; }
+  .offerta-sticky { position: static; }
+  .hero { padding: 100px 1.5rem 5rem; }
+  .cta-contacts { flex-direction: column; }
+  .cta-contact { width: 100%; text-align: center; }
+  /* Mantieni animazioni su mobile tranne quelle pesanti */
+  .hero-grid-lines { opacity: 0.04; } /* ridotto, non eliminato */
+  .particle { display: none; } /* particelle off su mobile per performance */
+  .hotel-watermark { font-size: 8rem; opacity: 0.03; }
+  .cursor, .cursor-ring { display: none; }
+  /* Timeline mobile */
+  .timeline-item { width: 82vw; padding: 0 1.2rem; }
+  .storia-header { grid-template-columns: 1fr; gap: 2rem; padding-right: 1.5rem; }
+  /* Loc grid mobile */
+  .loc-grid { grid-template-columns: 1fr; }
+  /* EV mobile */
+  .ev-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .section-ev { padding: 5rem 1.5rem; }
+  /* Storia mobile */
+  .section-storia { padding: 5rem 0 5rem 1.5rem; }
+  .nomi-marquee { padding-top: 1.5rem; }
+  /* Plastic mobile */
+  .plastic-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .section-plastic { padding: 5rem 1.5rem; }
+  /* Servizi mobile */
+  .servizi-grid { grid-template-columns: repeat(2, 1fr); }
+  .servizi-header { grid-template-columns: 1fr; gap: 2rem; }
+  .section-servizi { padding: 5rem 1.5rem; }
+  /* Gallery mobile */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+  .gallery-item { aspect-ratio: 4/3; }
+  .gallery-item:first-child { grid-column: 1 / 3; grid-row: auto; }
+  .gallery-header { flex-direction: column; align-items: start; gap: 1rem; }
+  .gallery-sub { text-align: left; }
+  .section-gallery { padding: 4rem 1.5rem; }
+  /* Doc cover mobile */
+  .doc-cover { padding: 2rem 1.5rem; min-height: auto; padding-top: 5rem; padding-bottom: 5rem; }
+  .doc-meta { top: 1.5rem; right: 1.5rem; }
+  .doc-ref { bottom: 1.5rem; left: 1.5rem; }
+  .doc-scroll-cta { bottom: 1.5rem; right: 1.5rem; }
+  .doc-cover-border { inset: 1rem; }
+  .hotel-gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="progress-bar" id="progress"></div>
+
+<!-- DOCUMENT COVER -->
+<section class="doc-cover" id="cover">
+  <div class="doc-cover-border"></div>
+  <div class="doc-meta">
+    <div class="doc-meta-item">Documento riservato</div>
+    <div class="doc-meta-item">Partnership Commerciale</div>
+    <div class="doc-meta-item">Stagione 2026</div>
+  </div>
+  <img src="https://hostegi.github.io/imgpartner/logohotel.svg" alt="Hotel delle Stelle" class="doc-logo">
+  <h1 class="doc-cover-title">Proposta di<br><em>Partnership Commerciale</em></h1>
+  <p class="doc-cover-sub">Hotel delle Stelle Beach Resort · Sangineto Lido · 2026</p>
+  <div class="doc-cover-divider"></div>
+  <p class="doc-cover-desc">Questo documento è rivolto a realtà commerciali interessate a costruire una collaborazione con una delle strutture ricettive più longeve e radicate della costa tirrenica calabrese. Non un'inserzione pubblicitaria. Una partnership pensata per durare.</p>
+  <div class="doc-ref">Ref. HDS-PARTNER-2026</div>
+  <div class="doc-scroll-cta" onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'})">Inizia</div>
+</section>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Hotel delle Stelle · Beach Resort</div>
+  <ul class="nav-links">
+    <li><a href="#hotel">La struttura</a></li>
+    <li><a href="#numeri">Numeri</a></li>
+    <li><a href="#storia">La storia</a></li>
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#partnership">Partnership</a></li>
+    <li><a href="#offerta">Cosa offriamo</a></li>
+    <li><a href="#contatti">Contatti</a></li>
+  </ul>
+  <div class="nav-social">
+    <div class="nav-social-btn" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </div>
+    <div class="nav-social-btn" title="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="var(--blu)" style="fill:#0B1A35"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="var(--blu)" stroke-width="2" style="stroke:#0B1A35"/></svg>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-photo-bg">
+    <img src="https://hostegi.github.io/imgpartner/ingressovintage.jpg" alt="" loading="eager" fetchpriority="high">
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Partnership Commerciale 2026</div>
+      <h1 class="hero-h1">Hotel<br>delle <em>Stelle</em></h1>
+      <p class="hero-sub">Beach Resort · Sangineto Lido · Calabria</p>
+      <p class="hero-desc">Sessant'anni sulla costa tirrenica calabrese. Ogni estate, migliaia di ospiti da tutta Italia e dall'estero in un contesto in cui mare, parco e ospitalità si incontrano in modo difficile da replicare altrove.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="stat-num"><span class="plus">+</span>18.000</div>
+        <div class="stat-label">Presenze alberghiere per stagione</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num"><span class="plus">+</span>30</div>
+        <div class="stat-label">Eventi e matrimoni all'anno</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">144</div>
+        <div class="stat-label">Camere disponibili</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">1965</div>
+        <div class="stat-label">Anno di fondazione</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll" onclick="document.getElementById('hotel').scrollIntoView()">
+    <span>Scopri</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- HOTEL -->
+<section class="section-hotel" id="hotel">
+  <div class="hotel-watermark">STELLE</div>
+  <div class="hotel-inner">
+    <div class="hotel-grid">
+      <div class="reveal">
+        <div class="section-tag">La struttura</div>
+        <h2 class="hotel-title">Un resort fronte mare.<br><em>Tutto l'anno.</em></h2>
+        <div class="hotel-text">
+          <p>L'Hotel delle Stelle si trova a Sangineto Lido, sulla costa tirrenica della Calabria settentrionale, a metà strada tra Napoli e Reggio Calabria. Una posizione che lo rende facilmente raggiungibile sia in auto dall'autostrada A2 sia via treno, con la stazione di Sangineto a pochi minuti dalla struttura.</p>
+          <p>Il resort è immerso in un parco rigoglioso che arriva fino al mare. Cinque edifici a forma di stella, 144 camere, spiaggia privata, piscina e un ristorante con vista diretta sull'acqua. La struttura lavora tutto l'anno: d'estate con famiglie e coppie, nel resto dell'anno come sede di meeting, eventi privati e matrimoni.</p>
+        </div>
+        <div class="loc-grid">
+          <div class="loc-cell">
+            <div class="loc-label">Posizione</div>
+            <div class="loc-val">Riviera dei Cedri<br>Costa Tirrenica Calabrese</div>
+          </div>
+          <div class="loc-cell">
+            <div class="loc-label">Accessi</div>
+            <div class="loc-val">A2 Autostrada del Sole<br>Stazione FS Sangineto</div>
+          </div>
+          <div class="loc-cell">
+            <div class="loc-label">Aeroporti</div>
+            <div class="loc-val">Lamezia Terme (65 km)<br>Napoli Capodichino (230 km)</div>
+          </div>
+          <div class="loc-cell">
+            <div class="loc-label">Apertura</div>
+            <div class="loc-val">Tutto l'anno<br>Picco giugno–settembre</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="section-tag">La storia</div>
+        <h2 class="hotel-title">Sessant'anni<br><em>di presenze.</em></h2>
+        <div class="hotel-gallery">
+          <img src="https://hostegi.github.io/imgpartner/piscina.jpg" alt="Piscina Hotel delle Stelle" loading="lazy">
+          <img src="https://hostegi.github.io/imgpartner/mare.jpg" alt="Vista mare Hotel delle Stelle" loading="lazy">
+        </div>
+        <div class="hotel-text" style="margin-top:1.5rem">
+          <p>Dal 1965, l'hotel è parte del tessuto estivo della Riviera dei Cedri. Nel corso degli anni ha sostenuto numerose iniziative del territorio: sport, cultura, beneficenza, eventi locali. Una presenza radicata che non si esaurisce con la stagione balneare.</p>
+          <p>Chi entra in partnership con l'Hotel delle Stelle si affianca a una struttura con storia, riconoscibilità e un pubblico fidelizzato che torna ogni anno.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsor strip -->
+    <div class="sponsor-strip reveal">
+      <div class="sponsor-strip-inner" id="sponsorStrip">
+        <span class="sponsor-pill">Sport locale</span>
+        <span class="sponsor-pill">Associazioni culturali</span>
+        <span class="sponsor-pill">Festival di beneficenza</span>
+        <span class="sponsor-pill">Motorsport</span>
+        <span class="sponsor-pill">Iniziative comunitarie</span>
+        <span class="sponsor-pill">Sport locale</span>
+        <span class="sponsor-pill">Associazioni culturali</span>
+        <span class="sponsor-pill">Festival di beneficenza</span>
+        <span class="sponsor-pill">Motorsport</span>
+        <span class="sponsor-pill">Iniziative comunitarie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMERI -->
+<section class="section-numeri" id="numeri">
+  <div class="numeri-bg-photo">
+    <img src="https://hostegi.github.io/imgpartner/ombrellone.jpg" alt="" loading="lazy">
+  </div>
+  <div class="numeri-inner">
+    <div class="section-tag reveal">I numeri</div>
+    <div class="numeri-grid">
+      <div class="numero-card reveal">
+        <div class="n-big"><span class="n-plus">+</span><span class="count-up" data-target="18000">0</span></div>
+        <div class="n-label">Presenze alberghiere<br>per stagione</div>
+      </div>
+      <div class="numero-card reveal reveal-delay-1">
+        <div class="n-big"><span class="n-plus">+</span><span class="count-up" data-target="30">0</span></div>
+        <div class="n-label">Eventi e matrimoni<br>all'anno</div>
+      </div>
+      <div class="numero-card reveal reveal-delay-2">
+        <div class="n-big"><span class="count-up" data-target="144">0</span></div>
+        <div class="n-label">Camere<br>disponibili</div>
+      </div>
+      <div class="numero-card reveal reveal-delay-3">
+        <div class="n-big"><span class="n-plus">+</span><span class="count-up" data-target="14000">0</span></div>
+        <div class="n-label">Follower<br>social</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIA -->
+<section class="section-storia" id="storia">
+  <div class="storia-header">
+    <div class="reveal">
+      <div class="section-tag">Una storia che continua</div>
+      <h2 class="storia-title">Sessant'anni<br>di <em>grandi nomi.</em></h2>
+    </div>
+    <div class="storia-intro reveal reveal-delay-2">
+      L'Hotel delle Stelle non è mai stato solo un posto dove dormire. Nel corso degli anni è diventato un punto di riferimento per artisti, registi, musicisti e personalità del mondo dello spettacolo che hanno attraversato la Riviera dei Cedri. Una storia fatta di incontri, di stagioni indimenticabili e di un posto che sa farsi ricordare.
+    </div>
+  </div>
+
+  <div class="timeline-track-wrap reveal">
+    <div class="timeline-drag-hint">Scorre automaticamente · trascina per esplorare</div>
+    <div class="timeline-track" id="timelineTrack">
+
+      <div class="timeline-item">
+        <div class="tl-year">Seconda metà '900</div>
+        <div class="tl-category">Musica</div>
+        <div class="tl-names">
+          <span class="tl-name">Lucio Dalla</span>
+        </div>
+        <div class="tl-note">Membro dello staff di animazione, ricordato dagli ospiti storici mentre scriveva testi in angoli iconici della struttura.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">Festival Euromediterraneo</div>
+        <div class="tl-category">Cinema Giovane · Sangineto</div>
+        <div class="tl-names">
+          <span class="tl-name">Pippo Baudo</span>
+          <span class="tl-name">Oreste Lionello</span>
+          <span class="tl-name">Eleonora Giorgi</span>
+          <span class="tl-name">Paola Barale</span>
+          <span class="tl-name">Elena Bouryka</span>
+          <span class="tl-name">Massimo Ciavarro</span>
+          <span class="tl-name">Ninni Bruschetta</span>
+          <span class="tl-name">Gianmarco Tognazzi</span>
+        </div>
+        <div class="tl-note">La Riviera dei Cedri palcoscenico del cinema italiano. Baudo ospite d'eccezione della serata conclusiva della 7ª edizione.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">Festival FILMARE</div>
+        <div class="tl-category">Spettacolo · Parco dell'hotel</div>
+        <div class="tl-names">
+          <span class="tl-name">Eleonora Giorgi</span>
+          <span class="tl-name">Ornella Muti</span>
+          <span class="tl-name">Violante Placido</span>
+          <span class="tl-name">Sergio Assisi</span>
+          <span class="tl-name">Chiara Francini</span>
+        </div>
+        <div class="tl-note">Il parco dell'hotel ospita ogni anno il festival FILMARE. Ospiti di rilievo nazionali davanti a un pubblico selezionato nel verde a due passi dal mare.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">Musica dal vivo</div>
+        <div class="tl-category">Concerto nel parco</div>
+        <div class="tl-names">
+          <span class="tl-name">Paolo Zanarella</span>
+        </div>
+        <div class="tl-note">Il pianista fuori posto — ha suonato un pianoforte sospeso in aria nel parco dell'hotel. Un esempio della vocazione della struttura ad ospitare cultura oltre la stagione balneare.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">Gran Galà di Beneficenza</div>
+        <div class="tl-category">Solidarietà · Ospitalità</div>
+        <img src="https://hostegi.github.io/imgpartner/Gala.jpg" alt="Gran Galà" class="gala-photo" loading="lazy">
+        <div class="tl-names">
+          <span class="tl-name">Una serata per il cuore</span>
+        </div>
+        <div class="tl-note">Raccolta fondi a favore del reparto di Cardiologia dell'Ospedale di Paola, organizzata dall'Unione regionale cuochi Calabria.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">22 marzo 2025</div>
+        <div class="tl-category">Solidarietà · Pranzo</div>
+        <div class="tl-names">
+          <span class="tl-name">Pranzo Solidale</span>
+        </div>
+        <div class="tl-note">Raccolta fondi per colorare la Pediatria dell'Ospedale di Cetraro. L'hotel conferma il proprio ruolo nel tessuto civile del territorio.</div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-year">Cinema · Produzione</div>
+        <div class="tl-category">Riprese sul territorio</div>
+        <div class="tl-names">
+          <span class="tl-name">Alessandro Gassmann</span>
+        </div>
+        <div class="tl-note">Squadra cinematografica del film <em>Mani Nude</em> ospitata in struttura durante le riprese nei dintorni di Sangineto.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Marquee nomi -->
+  <div class="nomi-marquee reveal">
+    <div class="nomi-marquee-inner">
+      <span class="nomi-pill">Lucio Dalla</span>
+      <span class="nomi-pill">Pippo Baudo</span>
+      <span class="nomi-pill">Eleonora Giorgi</span>
+      <span class="nomi-pill">Ornella Muti</span>
+      <span class="nomi-pill">Gianmarco Tognazzi</span>
+      <span class="nomi-pill">Alessandro Gassmann</span>
+      <span class="nomi-pill">Chiara Francini</span>
+      <span class="nomi-pill">Oreste Lionello</span>
+      <span class="nomi-pill">Paola Barale</span>
+      <span class="nomi-pill">Elena Bouryka</span>
+      <span class="nomi-pill">Massimo Ciavarro</span>
+      <span class="nomi-pill">Ninni Bruschetta</span>
+      <span class="nomi-pill">Violante Placido</span>
+      <span class="nomi-pill">Sergio Assisi</span>
+      <span class="nomi-pill">Paolo Zanarella</span>
+      <span class="nomi-pill">Lucio Dalla</span>
+      <span class="nomi-pill">Pippo Baudo</span>
+      <span class="nomi-pill">Eleonora Giorgi</span>
+      <span class="nomi-pill">Ornella Muti</span>
+      <span class="nomi-pill">Gianmarco Tognazzi</span>
+      <span class="nomi-pill">Alessandro Gassmann</span>
+      <span class="nomi-pill">Chiara Francini</span>
+      <span class="nomi-pill">Oreste Lionello</span>
+      <span class="nomi-pill">Paola Barale</span>
+      <span class="nomi-pill">Elena Bouryka</span>
+      <span class="nomi-pill">Massimo Ciavarro</span>
+      <span class="nomi-pill">Ninni Bruschetta</span>
+      <span class="nomi-pill">Violante Placido</span>
+      <span class="nomi-pill">Sergio Assisi</span>
+      <span class="nomi-pill">Paolo Zanarella</span>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERSHIP -->
+<section class="section-partnership" id="partnership">
+  <div class="partnership-inner">
+    <div class="partnership-header">
+      <div class="reveal">
+        <div class="section-tag">Collaborare con noi</div>
+        <h2 class="partnership-title">Partnership<br><em>su misura</em></h2>
+      </div>
+      <div class="partnership-intro reveal reveal-delay-2">
+        Non esiste un pacchetto fisso da prendere o lasciare. Ogni collaborazione si costruisce a partire dagli obiettivi dello sponsor, dalla durata preferita e dalle modalità di presenza che hanno più senso per il brand. Quello che seguiamo sempre è una logica semplice: voi portate il vostro prodotto o servizio, noi mettiamo a disposizione il contesto, il pubblico e la comunicazione.
+      </div>
+    </div>
+
+    <div class="forme-grid">
+      <div class="forma-card reveal">
+        <div class="forma-num">01</div>
+        <div class="forma-title">Visibilità fisica in struttura</div>
+        <p class="forma-text">Il brand dello sponsor entra negli spazi dell'hotel. Esposizione del prodotto, allestimento dedicato, presenza ai momenti di maggiore affluenza. La visibilità non è su uno schermo: è davanti a persone presenti, in un posto bello.</p>
+      </div>
+      <div class="forma-card reveal reveal-delay-1">
+        <div class="forma-num">02</div>
+        <div class="forma-title">Presenza agli eventi e matrimoni</div>
+        <p class="forma-text">Ogni cerimonia e ogni serata aziendale è un'occasione. Il prodotto o il servizio dello sponsor diventa parte dell'atmosfera, davanti a un pubblico selezionato in un contesto che favorisce attenzione e ricordo.</p>
+      </div>
+      <div class="forma-card reveal reveal-delay-2">
+        <div class="forma-num">03</div>
+        <div class="forma-title">Comunicazione e materiali</div>
+        <p class="forma-text">Logo su brochure, menu e materiali degli eventi. Menzione sui canali social. Tutto definito in funzione del pacchetto concordato e del tipo di comunicazione che lo sponsor vuole costruire.</p>
+      </div>
+    </div>
+
+    <!-- Esempio concreto -->
+    <div class="esempio-wrap reveal">
+      <div>
+        <div class="esempio-tag">Un esempio concreto</div>
+        <h3 class="esempio-title">Il partner<br><em>automotive</em></h3>
+        <p class="esempio-text">Una concessionaria che mette a disposizione un veicolo per la stagione estiva ottiene qualcosa che nessuna campagna digitale può replicare: visibilità fisica in un contesto aspirazionale, davanti a un pubblico con capacità di spesa che è lì per godersi l'estate. Il veicolo non è un gadget. È parte dell'esperienza.</p>
+      </div>
+      <div class="esempio-items">
+        <div class="esempio-item">
+          <div class="ei-title">Esposizione in ingresso</div>
+          <div class="ei-desc">Il veicolo posizionato all'ingresso della struttura, visibile a ogni ospite che arriva o parte per tutta la durata della partnership.</div>
+        </div>
+        <div class="esempio-item">
+          <div class="ei-title">Serate ed eventi</div>
+          <div class="ei-desc">Presente all'esterno durante matrimoni, cene di gala ed eventi aziendali: il brand della concessionaria in un contesto serale curato e con un pubblico qualificato.</div>
+        </div>
+        <div class="esempio-item">
+          <div class="ei-title">Transfer sul territorio</div>
+          <div class="ei-desc">Il veicolo viene utilizzato per il transfer dei clienti tra hotel, aeroporto, stazione e luoghi d'interesse. Percorre il territorio, è visibile, porta il brand della concessionaria fuori dalla struttura.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COSA OFFRIAMO -->
+<section class="section-offerta" id="offerta">
+  <div class="offerta-inner">
+    <div class="offerta-layout">
+      <div class="offerta-sticky reveal">
+        <div class="section-tag">Cosa offriamo</div>
+        <h2 class="offerta-title">Visibilità<br><em>reale</em></h2>
+        <p class="offerta-sub">Non solo sullo schermo. Persone fisicamente presenti, in un contesto che favorisce attenzione. Ogni elemento del pacchetto si definisce insieme, in base a ciò che ha senso per lo sponsor.</p>
+      </div>
+      <div class="offerta-list">
+        <div class="offerta-item reveal">
+          <div class="offerta-num">01</div>
+          <div class="offerta-content">
+            <div class="o-nome">Logo su materiali cartacei</div>
+            <div class="o-desc">Brochure, menu e materiali degli eventi. Il brand dello sponsor presente su ogni documento che gli ospiti toccano con mano durante il soggiorno o la cerimonia.</div>
+          </div>
+        </div>
+        <div class="offerta-item reveal reveal-delay-1">
+          <div class="offerta-num">02</div>
+          <div class="offerta-content">
+            <div class="o-nome">Menzione sui canali social</div>
+            <div class="o-desc">Post e storie dedicate sulle pagine Facebook e Instagram dell'hotel, con visibilità organica alla community della struttura lungo tutta la durata della collaborazione.</div>
+          </div>
+        </div>
+        <div class="offerta-item reveal reveal-delay-2">
+          <div class="offerta-num">03</div>
+          <div class="offerta-content">
+            <div class="o-nome">Spazio fisico in hotel</div>
+            <div class="o-desc">Area dedicata all'interno della struttura per materiali informativi, esposizione prodotti o allestimento brandizzato. Lo spazio si concorda in base alle esigenze e alle disponibilità stagionali.</div>
+          </div>
+        </div>
+        <div class="offerta-item reveal reveal-delay-3">
+          <div class="offerta-num">04</div>
+          <div class="offerta-content">
+            <div class="o-nome">Presenza agli eventi</div>
+            <div class="o-desc">Il brand è presente in tutti gli appuntamenti della stagione. Matrimoni, serate aziendali, eventi privati: ogni occasione è un contatto diretto con un pubblico selezionato in un momento positivo.</div>
+          </div>
+        </div>
+        <div class="offerta-item reveal">
+          <div class="offerta-num">05</div>
+          <div class="offerta-content">
+            <div class="o-nome">Pacchetti personalizzati</div>
+            <div class="o-desc">Ogni partnership è diversa. Siamo aperti a costruire soluzioni ad hoc che abbiano senso per il vostro settore, i vostri obiettivi e il periodo dell'anno che vi interessa coprire.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERIA FOTO -->
+<section class="section-gallery" id="galleria">
+  <div class="gallery-inner">
+    <div class="gallery-header reveal">
+      <h2 class="gallery-title">La struttura<br><em>in immagini</em></h2>
+      <p class="gallery-sub">Ogni spazio racconta un'estate. Ogni estate lascia qualcosa.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/parconotte.jpeg" alt="Parco di notte" loading="lazy">
+        <div class="gallery-item-label">Il parco</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/piscinas.jpg" alt="Piscina" loading="lazy">
+        <div class="gallery-item-label">La piscina</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/spiaggia.jpg" alt="Spiaggia" loading="lazy">
+        <div class="gallery-item-label">La spiaggia</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/mare.jpg" alt="Il mare" loading="lazy">
+        <div class="gallery-item-label">Il mare</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/borraccia.jpg" alt="Borraccia Hotel delle Stelle" loading="lazy">
+        <div class="gallery-item-label">Il brand</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/piscinavintage.jpg" alt="Piscina vintage" loading="lazy">
+        <div class="gallery-item-label">La storia</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://hostegi.github.io/imgpartner/ombrellone.jpg" alt="Ombrellone" loading="lazy">
+        <div class="gallery-item-label">L'estate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLASTIC FREE -->
+<section class="section-plastic" id="plastic">
+  <div class="plastic-inner">
+    <div class="reveal">
+      <div class="section-tag">Sostenibilità</div>
+      <h2 class="plastic-title">Verso un hotel<br><em>plastic free.</em></h2>
+      <p class="plastic-text">Ogni anno facciamo qualcosa di concreto per ridurre la plastica in struttura. Non è un traguardo già raggiunto, ma un percorso avviato con misure reali e un obiettivo chiaro: eliminare completamente la plastica monouso entro il 2028.</p>
+      <p class="plastic-text">Un partner che condivide questa direzione trova nell'hotel un contesto coerente con i propri valori — e un pubblico che apprezza chi fa scelte concrete, non solo dichiarazioni.</p>
+      <div class="plastic-progress">
+        <div class="plastic-progress-label">
+          <span>Percorso plastic free</span>
+          <span>Obiettivo 2028</span>
+        </div>
+        <div class="plastic-bar-wrap">
+          <div class="plastic-bar" id="plasticBar"></div>
+        </div>
+        <div class="plastic-milestone">Progresso stimato · in continuo miglioramento</div>
+      </div>
+    </div>
+    <div class="plastic-items reveal reveal-delay-2">
+      <div class="plastic-item">
+        <div class="plastic-item-icon">
+          <img src="https://hostegi.github.io/imgpartner/borraccia.jpg" alt="Borraccia brandizzata" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" loading="lazy">
+        </div>
+        <div>
+          <div class="plastic-item-title">Borracce brandizzate</div>
+          <div class="plastic-item-desc">Le nostre borracce con il logo dell'hotel accompagnano gli ospiti durante il soggiorno e oltre — un oggetto che porta il brand fuori dalla struttura ogni volta che viene usato.</div>
+        </div>
+      </div>
+      <div class="plastic-item">
+        <div class="plastic-item-icon" style="font-size:1.1rem;color:var(--oro);">↓</div>
+        <div>
+          <div class="plastic-item-title">Riduzione imballaggi</div>
+          <div class="plastic-item-desc">Progressiva eliminazione di plastica monouso. Materiali riutilizzabili e fornitori selezionati.</div>
+        </div>
+      </div>
+      <div class="plastic-item">
+        <div class="plastic-item-icon" style="font-size:0.85rem;color:var(--oro);font-weight:600;">2028</div>
+        <div>
+          <div class="plastic-item-title">Obiettivo plastic free</div>
+          <div class="plastic-item-desc">Entro il 2028 l'hotel punta all'eliminazione completa della plastica monouso in tutta la struttura. Un impegno pubblico e misurabile.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIZI -->
+<section class="section-servizi" id="servizi">
+  <div class="servizi-inner">
+    <div class="servizi-header">
+      <div class="reveal">
+        <div class="section-tag">Oltre il mare</div>
+        <h2 class="servizi-title">Una struttura<br><em>completa.</em></h2>
+      </div>
+      <div class="servizi-intro reveal reveal-delay-2">
+        L'hotel non si esaurisce con la spiaggia e le camere. Per uno sponsor, ogni spazio è un contesto di visibilità: il bar piscina dove si sosta nel pomeriggio, la palestra frequentata al mattino presto, il centro estetico dove si prenota settimane prima. Ambienti diversi, pubblici diversi, tutti sotto lo stesso tetto.
+      </div>
+    </div>
+    <div class="servizi-grid">
+      <div class="servizio-card reveal">
+        <div class="servizio-nome">Bar Piscina</div>
+        <div class="servizio-desc">Punto di ritrovo pomeridiano. Alta frequenza di passaggio, ambiente rilassato, clientela con disponibilità di tempo e spesa.</div>
+      </div>
+      <div class="servizio-card reveal reveal-delay-1">
+        <div class="servizio-nome">Spiaggia Privata</div>
+        <div class="servizio-desc">Accesso diretto al mare con attrezzatura riservata agli ospiti. Contesto esclusivo per attività di brand e product placement.</div>
+      </div>
+      <div class="servizio-card reveal reveal-delay-2">
+        <div class="servizio-nome">Palestra</div>
+        <div class="servizio-desc">Frequentata mattina e sera. Pubblico attento al benessere fisico — profilo ideale per brand nel settore sport, automotive o wellness.</div>
+      </div>
+      <div class="servizio-card reveal reveal-delay-3">
+        <div class="servizio-nome">Centro Estetico</div>
+        <div class="servizio-desc">Servizi di cura della persona prenotati con anticipo. Target prevalentemente femminile, alta propensione alla spesa, fedeltà alla struttura.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLONNINA ELETTRICA -->
+<section class="section-ev">
+  <div class="ev-inner">
+    <div class="reveal">
+      <div class="section-tag">Mobilità sostenibile</div>
+      <h2 class="ev-title">Ricarica elettrica.<br><em>Auto e bici.</em></h2>
+      <p class="ev-text">L'Hotel delle Stelle è un punto DINAclub Repower: nel parcheggio è attiva una colonnina di ricarica per veicoli elettrici, affiancata da una rastrelliera per la ricarica delle e-bike. Una doppia infrastruttura che ha già portato la struttura a essere tappa ufficiale del Laduesse – Calabria Trail, evento cicloturistico patrocinato da Repower che ha attraversato l'intera provincia di Cosenza dal Pollino alla Riviera dei Cedri.</p>
+      <p class="ev-text">Per un partner nel settore automotive l'abbinamento è diretto: un veicolo elettrico o ibrido esposto accanto alla colonnina racconta qualcosa di preciso sul brand, in un contesto dove la mobilità sostenibile è già infrastruttura e non solo claim. Per chi si occupa di mobilità leggera o cicloturismo, la rastrelliera e-bike apre un'opportunità analoga.</p>
+      <div class="ev-badge">Partner DINAclub · Repower</div>
+      <div class="repower-logo-wrap">
+        <img src="https://hostegi.github.io/imgpartner/logoepower.svg" alt="Logo Repower" loading="lazy">
+        <span class="repower-logo-label">Partner ufficiale</span>
+      </div>
+    </div>
+    <div class="ev-visual reveal reveal-delay-2">
+      <!-- FOTO COLONNINA: sostituisci src — consigliata foto della colonnina e/o rastrelliera e-bike in parcheggio -->
+      <!-- <div style="grid-column:1/-1;aspect-ratio:16/7;overflow:hidden;margin-bottom:1px"><img src="URL_FOTO_COLONNINA" alt="Colonnina ricarica EV Hotel delle Stelle" loading="lazy" class="photo-slot"></div> -->
+      <div class="ev-stat">
+        <div class="ev-stat-num">EV</div>
+        <div class="ev-stat-label">Colonnina ricarica<br>auto elettriche</div>
+      </div>
+      <div class="ev-stat">
+        <div class="ev-stat-num">E-bike</div>
+        <div class="ev-stat-label">Rastrelliera<br>ricarica bici</div>
+      </div>
+      <div class="ev-stat">
+        <div class="ev-stat-num">24h</div>
+        <div class="ev-stat-label">Disponibilità<br>continua</div>
+      </div>
+      <div class="ev-stat">
+        <div class="ev-stat-num">DINAclub</div>
+        <div class="ev-stat-label">Punto ufficiale<br>Repower</div>
+      </div>
+      <div class="ev-highlight">
+        <div class="ev-highlight-text">Tappa del Laduesse – Calabria Trail: 178 km dal Pollino al Tirreno, con l'hotel come punto di riferimento sul percorso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-cta" id="contatti">
+  <div class="rings">
+    <div class="ring" style="width:400px;height:400px;--d:6s;"></div>
+    <div class="ring" style="width:600px;height:600px;--d:9s;"></div>
+    <div class="ring" style="width:800px;height:800px;--d:12s;"></div>
+    <div class="ring" style="width:1100px;height:1100px;--d:16s;"></div>
+  </div>
+  <div class="cta-inner">
+    <div class="cta-tag reveal">Iniziamo a parlarne</div>
+    <h2 class="cta-title reveal">Raccontateci<br><em>cosa cercate</em></h2>
+    <p class="cta-text reveal">Non serve un brief formale. Una telefonata o un'email bastano per capire se c'è la base per costruire qualcosa insieme. Siamo disponibili per un incontro in struttura o a distanza, senza impegno.</p>
+    <div class="cta-contacts reveal">
+      <div class="cta-contact">
+        <div class="cta-contact-label">Telefono</div>
+        <div class="cta-contact-value">0982 96091</div>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-contact-label">Email</div>
+        <div class="cta-contact-value">info@hoteldellestelle.it</div>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-contact-label">Sito web</div>
+        <div class="cta-contact-value"><a href="https://www.hoteldellestelle.it" target="_blank" rel="noopener" class="cta-web-link">hoteldellestelle.it</a></div>
+      </div>
+    </div>
+    <div class="cta-footer reveal">
+      Hotel delle Stelle Beach Resort · Viale della Libertà 29 · 87020 Sangineto Lido (CS)<br>
+      PERSEA Srls · P.IVA 03895690786
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL FOOTER -->
+<div class="social-strip">
+  <span class="social-strip-label">Seguici</span>
+  <div class="social-strip-icons">
+    <div class="ss-icon" title="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </div>
+    <div class="ss-icon" title="Instagram">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="rgba(255,255,255,0.5)" stroke-width="2"/></svg>
+    </div>
+  </div>
+  <span class="social-strip-note">Hotel delle Stelle Beach Resort</span>
+</div>
+
+<!-- LANG TOGGLE RIMOSSO -->
+
+
+<script>
+// ─── TOUCH DETECTION — disabilita cursor su mobile/touch ───
+const isTouch = window.matchMedia('(hover: none)').matches;
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+
+if (!isTouch && cursor && ring) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  let rafCursor = null;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+    if (!rafCursor) {
+      rafCursor = requestAnimationFrame(() => { rafCursor = null; });
+    }
+  }, { passive: true });
+
+  // Usa transform invece di left/top per evitare reflow
+  cursor.style.cssText += ';left:0;top:0;will-change:transform';
+  ring.style.cssText += ';left:0;top:0;will-change:transform';
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a,button,.forma-card,.offerta-item,.esempio-item,.hero-stat,.numero-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.style.scale = '2.5', { passive: true });
+    el.addEventListener('mouseleave', () => cursor.style.scale = '1', { passive: true });
+  });
+} else {
+  if (cursor) cursor.style.display = 'none';
+  if (ring) ring.style.display = 'none';
+}
+
+// ─── PROGRESS BAR + NAV (throttled) ───
+const progressBar = document.getElementById('progress');
+const nav = document.getElementById('nav');
+let scrollTicking = false;
+
+window.addEventListener('scroll', () => {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    progressBar.style.width = pct + '%';
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+    scrollTicking = false;
+  });
+}, { passive: true });
+
+// ─── PARTICLES ───
+const container = document.getElementById('particles');
+if (container && !isTouch) {
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${Math.random()*100}%;bottom:${Math.random()*30}%;--dur:${4+Math.random()*8}s;--delay:${Math.random()*6}s;--drift:${(Math.random()-.5)*60}px;width:${1+Math.random()*2}px;height:${1+Math.random()*2}px`;
+    frag.appendChild(p);
+  }
+  container.appendChild(frag);
+}
+
+// ─── REVEAL ON SCROLL ───
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ─── COUNT UP ───
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1600;
+    const start = performance.now();
+    const isLarge = target >= 1000;
+    function update(now) {
+      const ease = 1 - Math.pow(1 - Math.min((now - start) / duration, 1), 3);
+      const val = Math.round(ease * target);
+      el.textContent = isLarge ? val.toLocaleString('it-IT') : val;
+      if (ease < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.count-up').forEach(el => countObs.observe(el));
+
+// ─── TIMELINE AUTO-SCROLL + DRAG ───
+const track = document.getElementById('timelineTrack');
+if (track) {
+  let paused = false;
+  const SPEED = 0.7;
+  let raf;
+
+  function autoScroll() {
+    if (!paused) {
+      track.scrollLeft += SPEED;
+      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
+        track.scrollLeft = 0;
+      }
+    }
+    raf = requestAnimationFrame(autoScroll);
+  }
+  raf = requestAnimationFrame(autoScroll);
+
+  track.addEventListener('mouseenter', () => { paused = true; }, { passive: true });
+  track.addEventListener('mouseleave', () => { paused = false; }, { passive: true });
+
+  // Drag desktop
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; paused = true;
+    track.style.cursor = 'grabbing';
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseup', () => {
+    isDown = false;
+    track.style.cursor = 'grab';
+    setTimeout(() => { paused = false; }, 1200);
+  });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.4;
+  });
+
+  // Drag touch
+  let tx, tsl;
+  track.addEventListener('touchstart', e => {
+    tx = e.touches[0].pageX; tsl = track.scrollLeft; paused = true;
+  }, { passive: true });
+  track.addEventListener('touchmove', e => {
+    track.scrollLeft = tsl - (e.touches[0].pageX - tx);
+  }, { passive: true });
+  track.addEventListener('touchend', () => {
+    setTimeout(() => { paused = false; }, 1800);
+  }, { passive: true });
+}
+
+// ─── PLASTIC BAR ANIMATION ───
+const plasticBar = document.getElementById('plasticBar');
+if (plasticBar) {
+  const plasticObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => plasticBar.classList.add('animated'), 300);
+        plasticObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  plasticObs.observe(plasticBar);
+}
+</script>
+</body>
+</html>
