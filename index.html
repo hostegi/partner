@@ -21,13 +21,20 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 body {
   font-family: 'Montserrat', sans-serif;
   background: var(--bianco);
   color: var(--testo);
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Fix contenitori che possono sforare */
+section, div, nav, footer {
+  max-width: 100%;
 }
 
 /* ─── CURSOR ─── */
@@ -57,10 +64,18 @@ body {
   top: 0; left: 0;
   height: 4px;
   background: linear-gradient(90deg, var(--blu-chiaro), var(--oro), var(--oro-chiaro));
-  z-index: 200;
+  z-index: 201;
   width: 0%;
   transition: width 0.1s linear;
   box-shadow: 0 0 8px rgba(201,168,76,0.5);
+}
+/* Sfondo tinta unita dietro la progress bar */
+.progress-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--blu);
+  z-index: 200;
 }
 
 /* ─── NAV ─── */
@@ -302,7 +317,7 @@ nav.scrolled {
   overflow: hidden;
   transition: background 0.4s;
 }
-.hero-stat:hover { background: rgba(201,168,76,0.05); }
+.hero-stat:hover, .hero-stat:active { background: rgba(201,168,76,0.05); }
 .hero-stat::before {
   content: '';
   position: absolute;
@@ -311,7 +326,7 @@ nav.scrolled {
   background: var(--oro);
   transition: height 0.5s;
 }
-.hero-stat:hover::before { height: 100%; }
+.hero-stat:hover::before, .hero-stat:active::before { height: 100%; }
 
 .stat-num {
   font-family: 'Cormorant Garamond', serif;
@@ -403,6 +418,8 @@ nav.scrolled {
   pointer-events: none;
   user-select: none;
   animation: watermarkSlide 30s linear infinite;
+  overflow: hidden;
+  max-width: 100%;
 }
 @keyframes watermarkSlide {
   0% { transform: translateY(-50%) translateX(0); }
@@ -528,7 +545,7 @@ nav.scrolled {
   transition: background 0.4s;
 }
 .numero-card:last-child { border-right: 1px solid rgba(201,168,76,0.12); }
-.numero-card:hover { background: rgba(255,255,255,0.02); }
+.numero-card:hover, .numero-card:active { background: rgba(255,255,255,0.02); }
 .numero-card::after {
   content: '';
   position: absolute;
@@ -617,18 +634,18 @@ nav.scrolled {
   opacity: 0;
   transition: opacity 0.4s;
 }
-.forma-card:hover {
+.forma-card:hover, .forma-card:active {
   transform: translateY(-8px);
   box-shadow: 0 24px 60px rgba(11,26,53,0.12);
   border-bottom-color: var(--oro);
 }
-.forma-card:hover .forma-num,
-.forma-card:hover .forma-title,
-.forma-card:hover .forma-text { position: relative; z-index: 1; }
-.forma-card:hover .forma-num { color: rgba(201,168,76,0.3); }
-.forma-card:hover .forma-title { color: var(--bianco); }
-.forma-card:hover .forma-text { color: rgba(255,255,255,0.6); }
-.forma-card:hover::before { opacity: 1; }
+.forma-card:hover .forma-num, .forma-card:active .forma-num,
+.forma-card:hover .forma-title, .forma-card:active .forma-title,
+.forma-card:hover .forma-text, .forma-card:active .forma-text { position: relative; z-index: 1; }
+.forma-card:hover .forma-num, .forma-card:active .forma-num { color: rgba(201,168,76,0.3); }
+.forma-card:hover .forma-title, .forma-card:active .forma-title { color: var(--bianco); }
+.forma-card:hover .forma-text, .forma-card:active .forma-text { color: rgba(255,255,255,0.6); }
+.forma-card:hover::before, .forma-card:active::before { opacity: 1; }
 
 .forma-num {
   font-family: 'Cormorant Garamond', serif;
@@ -809,7 +826,7 @@ nav.scrolled {
   transition: background 0.3s;
 }
 .offerta-item:first-child { border-top: 1px solid rgba(201,168,76,0.15); }
-.offerta-item:hover { background: rgba(201,168,76,0.04); }
+.offerta-item:hover, .offerta-item:active { background: rgba(201,168,76,0.04); }
 .offerta-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
@@ -922,7 +939,7 @@ nav.scrolled {
   margin: -1px 0 0 -1px;
   transition: background 0.3s, border-color 0.3s;
 }
-.cta-contact:hover {
+.cta-contact:hover, .cta-contact:active {
   background: rgba(201,168,76,0.06);
   border-color: rgba(201,168,76,0.35);
   z-index: 1;
@@ -1424,6 +1441,23 @@ nav.scrolled {
   color: rgba(255,255,255,0.58);
   margin-bottom: 1.2rem;
 }
+/* ─── TOUCH ACTIVE — equivalente :hover su touch ─── */
+.touch-active.hero-stat { background: rgba(201,168,76,0.05); }
+.touch-active.hero-stat::before { height: 100%; }
+.touch-active.numero-card { background: rgba(255,255,255,0.02); }
+.touch-active.numero-card::after { width: 100%; }
+.touch-active.forma-card { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(11,26,53,0.12); border-bottom-color: var(--oro); }
+.touch-active.forma-card::before { opacity: 1; }
+.touch-active.forma-card .forma-title { color: var(--bianco); position: relative; z-index: 1; }
+.touch-active.forma-card .forma-text { color: rgba(255,255,255,0.6); position: relative; z-index: 1; }
+.touch-active.offerta-item { background: rgba(201,168,76,0.04); }
+.touch-active.plastic-item { background: rgba(255,255,255,0.03); }
+.touch-active.ev-stat { background: var(--oro-tenue); }
+.touch-active.servizio-card { background: var(--sabbia); transform: translateY(-2px); }
+.touch-active.servizio-card::before { width: 100%; }
+.touch-active.cta-contact { background: rgba(201,168,76,0.06); border-color: rgba(201,168,76,0.35); }
+.touch-active.esempio-item { border-left-color: var(--oro); background: rgba(255,255,255,0.03); }
+
 .plastic-progress {
   margin-top: 2rem;
   padding: 1.8rem 2rem;
@@ -1477,7 +1511,7 @@ nav.scrolled {
   align-items: start;
   transition: background 0.3s;
 }
-.plastic-item:hover { background: rgba(255,255,255,0.03); }
+.plastic-item:hover, .plastic-item:active { background: rgba(255,255,255,0.03); }
 .plastic-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
 .plastic-item-icon {
   width: 2.5rem; height: 2.5rem;
@@ -1559,11 +1593,11 @@ nav.scrolled {
   background: var(--oro);
   transition: width 0.4s;
 }
-.servizio-card:hover {
+.servizio-card:hover, .servizio-card:active {
   background: var(--sabbia);
   transform: translateY(-3px);
 }
-.servizio-card:hover::before { width: 100%; }
+.servizio-card:hover::before, .servizio-card:active::before { width: 100%; }
 .servizio-card img {
   width: 100%;
   aspect-ratio: 4/3;
@@ -1900,7 +1934,7 @@ nav.scrolled {
   text-align: center;
   transition: background 0.3s;
 }
-.ev-stat:hover { background: var(--oro-tenue); }
+.ev-stat:hover, .ev-stat:active { background: var(--oro-tenue); }
 .ev-stat-num {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.8rem;
@@ -2057,6 +2091,7 @@ nav.scrolled {
 </head>
 <body>
 
+<div class="progress-bg"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="progress-bar" id="progress"></div>
@@ -2091,7 +2126,7 @@ nav.scrolled {
     <li><a href="#contatti">Contatti</a></li>
   </ul>
   <div class="nav-social">
-    <a href="https://www.facebook.com/hoteldellestelle" target="_blank" rel="noopener" class="nav-social-btn" title="Facebook" aria-label="Facebook Hotel delle Stelle">
+    <a href="https://www.facebook.com/share/1CcZ9MZ61M/?mibextid=wwXIfr" target="_blank" rel="noopener" class="nav-social-btn" title="Facebook" aria-label="Facebook Hotel delle Stelle">
       <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
     </a>
     <a href="https://www.instagram.com/hoteldellestelle" target="_blank" rel="noopener" class="nav-social-btn" title="Instagram" aria-label="Instagram Hotel delle Stelle">
@@ -2667,7 +2702,7 @@ nav.scrolled {
 <div class="social-strip">
   <span class="social-strip-label">Seguici</span>
   <div class="social-strip-icons">
-    <a href="https://www.facebook.com/hoteldellestelle" target="_blank" rel="noopener" class="ss-icon" title="Facebook" aria-label="Facebook">
+    <a href="https://www.facebook.com/share/1CcZ9MZ61M/?mibextid=wwXIfr" target="_blank" rel="noopener" class="ss-icon" title="Facebook" aria-label="Facebook">
       <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
     </a>
     <a href="https://www.instagram.com/hoteldellestelle" target="_blank" rel="noopener" class="ss-icon" title="Instagram" aria-label="Instagram">
@@ -2836,7 +2871,22 @@ if (track) {
   }, { passive: true });
 }
 
-// ─── PLASTIC BAR ANIMATION ───
+// ─── TOUCH FEEDBACK — attiva classe :active su tap su mobile ───
+if (isTouch) {
+  document.querySelectorAll('.hero-stat, .numero-card, .forma-card, .offerta-item, .plastic-item, .ev-stat, .servizio-card, .cta-contact, .esempio-item').forEach(el => {
+    el.addEventListener('touchstart', () => el.classList.add('touch-active'), { passive: true });
+    el.addEventListener('touchend', () => {
+      setTimeout(() => el.classList.remove('touch-active'), 300);
+    }, { passive: true });
+  });
+}
+
+// ─── NAV — background immediato su mobile ───
+if (isTouch) {
+  nav.classList.add('scrolled');
+}
+
+
 const plasticBar = document.getElementById('plasticBar');
 if (plasticBar) {
   const plasticObs = new IntersectionObserver(entries => {
