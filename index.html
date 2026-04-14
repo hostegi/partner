@@ -307,15 +307,18 @@ nav.scrolled {
   gap: 1px;
   opacity: 0;
   animation: fadeLeft 1s 0.7s forwards;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .hero-stat {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(201,168,76,0.12);
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 1.5rem;
   position: relative;
   overflow: hidden;
   transition: background 0.4s;
+  min-width: 0;
 }
 .hero-stat:hover, .hero-stat:active { background: rgba(201,168,76,0.05); }
 .hero-stat::before {
@@ -330,14 +333,15 @@ nav.scrolled {
 
 .stat-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3.2rem;
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
   font-weight: 300;
   color: var(--oro-chiaro);
   line-height: 1;
   margin-bottom: 0.5rem;
-  counter-reset: num;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
-.stat-num .plus { font-size: 1.8rem; color: var(--oro); }
+.stat-num .plus { font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--oro); }
 .stat-label {
   font-size: 0.65rem;
   font-weight: 500;
@@ -523,6 +527,8 @@ nav.scrolled {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 .numeri-grid::before {
   content: '';
@@ -538,11 +544,12 @@ nav.scrolled {
   pointer-events: none;
 }
 .numero-card {
-  padding: 3.5rem 2.5rem;
+  padding: 3.5rem 2rem;
   border-left: 1px solid rgba(201,168,76,0.12);
   position: relative;
   overflow: hidden;
   transition: background 0.4s;
+  min-width: 0;
 }
 .numero-card:last-child { border-right: 1px solid rgba(201,168,76,0.12); }
 .numero-card:hover, .numero-card:active { background: rgba(255,255,255,0.02); }
@@ -558,17 +565,19 @@ nav.scrolled {
 
 .n-big {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 4rem;
+  font-size: clamp(2.2rem, 6vw, 4rem);
   font-weight: 300;
   color: var(--oro-chiaro);
   line-height: 1;
   margin-bottom: 0.7rem;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
-.n-big .n-plus { font-size: 2rem; color: var(--oro); }
+.n-big .n-plus { font-size: clamp(1.2rem, 3vw, 2rem); color: var(--oro); }
 .n-label {
-  font-size: 0.68rem;
+  font-size: clamp(0.55rem, 1.5vw, 0.68rem);
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.38);
   line-height: 1.5;
@@ -1927,26 +1936,32 @@ nav.scrolled {
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   background: rgba(201,168,76,0.12);
+  width: 100%;
+  overflow: hidden;
 }
 .ev-stat {
   background: var(--bianco);
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 1.5rem;
   text-align: center;
   transition: background 0.3s;
+  overflow: hidden;
+  min-width: 0;
 }
 .ev-stat:hover, .ev-stat:active { background: var(--oro-tenue); }
 .ev-stat-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
   font-weight: 300;
   color: var(--blu);
   line-height: 1;
   margin-bottom: 0.5rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .ev-stat-label {
-  font-size: 0.62rem;
+  font-size: clamp(0.52rem, 1.5vw, 0.62rem);
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--grigio);
   line-height: 1.4;
@@ -1954,12 +1969,12 @@ nav.scrolled {
 .ev-highlight {
   grid-column: 1 / -1;
   background: var(--blu);
-  padding: 2rem;
+  padding: 2rem 1.5rem;
   text-align: center;
 }
 .ev-highlight-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: clamp(0.88rem, 2.5vw, 1.1rem);
   font-style: italic;
   font-weight: 300;
   color: var(--oro-chiaro);
